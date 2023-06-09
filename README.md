@@ -17,9 +17,8 @@ docker volume create -nname ignition_git_test_ssh_keys
 
 ## Run the Container
 ```bash
-docker run -d -p 10088:8088 --name ignition-git-test -v ignition_git_test_data:/data -v ignition_git_test_ssh_keys:/root/.ssh ignition-git-test
+docker run -d --restart always -p 8088:8088 --name ignition-git-test -v ignition_git_test_data:/usr/local/bin/ignition inductiveautomation/ignition:latest -v ignition_git_test_ssh_keys:/root/.ssh ignition-git-test
 ```
-
 
 # Demo
 In this demo we will create two ignition containers.
@@ -46,11 +45,11 @@ We use docker run to launch the containers. Some options we are going to make us
 
 ### Startup the DEV container
 ```bash
-docker run -d -p 10088:8088 --name ignition-dev -v ignition_dev_data:/data -v ignition_ssh_keys_dev:/root/.ssh -v ignition_gitconfig_dev:/root/.gitconfig ignition-git-test
+docker run --name ignition-dev -d --restart always -p 10088:8088  -v ignition_dev_data:/usr/local/bin/ignition inductiveautomation/ignition:latest -v ignition_ssh_keys_dev:/root/.ssh -v ignition_gitconfig_dev:/root/.gitconfig ignition-git-test
 ```
 ### Startup the PROD container
 ```bash
-docker run -d -p 11088:8088 --name ignition-prod -v ignition_prod_data:/data -v ignition_ssh_keys_prod:/root/.ssh -v ignition_gitconfig_prod:/root/.gitconfigignition-git-test
+docker run --name ignition-prod -d --restart always -p 10088:8088  -v ignition_prod_data:/usr/local/bin/ignition inductiveautomation/ignition:latest -v ignition_ssh_keys_prod:/root/.ssh -v ignition_gitconfig_prod:/root/.gitconfig ignition-git-test
 ```
 
 ## Setup the Gateways
