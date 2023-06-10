@@ -1,0 +1,15 @@
+version: '3'
+services:
+  ignition_prod:
+    image: inductiveautomation/ignition:latest
+    container_name: ignition_prod
+    restart: always
+    ports:
+      - "8088:8088"
+    volumes:
+      - data:/usr/local/bin/ignition/data
+      - user_lib:/usr/local/bin/ignition/user-lib
+
+volumes:
+  data:
+  user_lib:
